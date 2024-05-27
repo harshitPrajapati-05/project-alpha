@@ -51,8 +51,8 @@ const SignIn = () =>
              error: (err:any) => (`${err}`),
            })
           }
-        const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
-          axios.post(`/api/check`, values).then(res => signinIndicator({values})) 
+        const onSubmit = async (data: z.infer<typeof SignInSchema>) => {
+          axios.post(`/api/check`, data).then(res => signinIndicator({data})) 
         };
        
   return (
