@@ -77,7 +77,7 @@ export const POST = async (req:NextRequest,{params}:{params:{username:string , v
                     await verifiedUser.save();
                     await unstable_update({ user: { ...User, isVerified: false, verifyCode: verifiedUser.verifyCode, isVerifyExpire: verifiedUser.isVerifyExpire } });
                     return NextResponse.json({ message: "User is unverified" }, { status: 401 });
-                } catch (err) {
+                } catch (err:any) {
                     return NextResponse.json({ message: err.message }, { status: 500 });
                 }
             } else {
@@ -89,7 +89,7 @@ export const POST = async (req:NextRequest,{params}:{params:{username:string , v
                     }
                 }, { status: 200 });
             }
-        } catch (err) {
+        } catch (err:any) {
             return NextResponse.json({ message: err.message }, { status: 500 });
         }
     };
