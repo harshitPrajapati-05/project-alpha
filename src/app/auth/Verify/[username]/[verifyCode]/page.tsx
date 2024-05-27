@@ -54,7 +54,7 @@ const Verify = () => {
           it Might help to verify yourself on other platforms
         </TextRevealCardDescription>
       </TextRevealCard>
-      <h3>You will unVerified on ::{ new Date(session.user.isVerifyExpire).toDateString()}</h3>
+      <h3>You will unVerified on ::{ new Date(session.user.verifyExpire).toDateString()}</h3>
               </>:
               <Button onClick={verifyAccount} className='w-full'>Verify Account</Button>
             }
