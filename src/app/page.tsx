@@ -25,7 +25,7 @@ const Page = () => {
       </>
       :
       <>
-      <h2> YOU ARE ISN'T SIGNIN</h2>
+      <h2> YOU ARE ISN&apos;T SIGNIN</h2>
       <Button onClick={()=>signIn()}>sign in</Button>
       </>
       }
