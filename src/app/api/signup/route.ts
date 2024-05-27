@@ -17,9 +17,9 @@ export const POST = async (req:NextRequest) =>
     if(existingUser) return NextResponse.json({message:"User already exists",User:existingUser}, {status:400});
     const genSalt =bcrypt.genSaltSync(10);
     let verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
-    let isVerifyExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    let verifyExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
     zodedInfo.data.password =  bcrypt.hashSync(zodedInfo.data.password, genSalt);
-    const user = new UserModel({...zodedInfo.data, verifyCode: verifyCode ,isVerifyExpire:isVerifyExpire});
+    const user = new UserModel({...zodedInfo.data, verifyCode: verifyCode ,verifyExpire:verifyExpire});
     await user.save()
     return NextResponse.json({message:"User created successfully",User:user }, {status:200});
 }
