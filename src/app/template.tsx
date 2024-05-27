@@ -54,7 +54,7 @@ const Template = ({ children }: { children: React.ReactNode }) => {
         checkVerifyExpire();
     }, [expireText, session]);
     
-    return (session || pathname.startsWith("/auth")) && <>{children}</>
+    return (session || pathname.startsWith("/auth")|| pathname.startsWith(`/`)) && <>{children}</>
 }
 
 export default Template;
