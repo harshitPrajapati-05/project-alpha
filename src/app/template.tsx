@@ -1,6 +1,8 @@
 "use client"
+import { UserModel } from "@/Models/User";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import dbConnect from "@/lib/dbConnect";
 import axios from "axios";
 import { Session } from "next-auth";
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -14,7 +16,6 @@ const Template = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
     const [session, setSession] = useState<Session | null>(null);
     const { data: sessionData ,update} = useSession();
-    const [expireText, setExpireText] = useState('');
 
     useMemo(() => {
         if (sessionData === null || sessionData === undefined) return;
@@ -32,22 +33,24 @@ const Template = ({ children }: { children: React.ReactNode }) => {
     }, [session, lowerPathName, router]);
 
 
-    useMemo(() => {
-        const checkVerifyExpire = () => {
-            if (expireText.length > 0 && session?.user) {
-                axios.get(`/api/verify/${btoa(btoa(session.user.username))}/${btoa(session.user.verifyCode)}`)
-                    .then((res) => {
-                        setExpireText(res.data.message);
-                        toast.success(res.data.message);
-                    })
-                    .catch((err) => {
-                        setExpireText(err.response.data.age);
-                        toast.error(err.response.data.age);
-                    });
-            }
-        };
-        checkVerifyExpire();
-    }, [expireText, session]);
+   if(new Date(session?.user?.verifyExpire)< new Date()){
+     (async()=>
+        {
+            await dbConnect();
+            let verifyExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+            let verifyCode= Math.floor(100000 + Math.random() * 900000).toString();
+            const user = await UserModel.findOne({username:session?.user?.username,isVerified:true})
+            user.verified = false ;
+            user.verifyCode= verifyCode;
+            user.verifyExpire = verifyExpire;
+            user.save()
+            .then(async()=>{
+                await update({user:{isVerified:false,verifyExpire:verifyExpire,verifyCode:verifyCode}});
+                toast.warning("Your Verification is Expired ");
+            }).catch((err:any)=> toast.error("Internal Server Error"))
+        }
+        )()
+   }
     
     return (session || pathname.startsWith("/auth")|| pathname.startsWith(`/`)) && <>{children}</>
 }
