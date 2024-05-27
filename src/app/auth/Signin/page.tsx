@@ -26,15 +26,15 @@ const SignIn = () =>
         });
         const router = useRouter();
         const onSwitch = () => setSwitcher(!switcher);
-        const signinIndicator =({values}:{values:z.infer<typeof SignInSchema>})=>
+        const signinIndicator =({data}:{values:z.infer<typeof SignInSchema>})=>
           {
             const promise = new Promise((resolve, reject) => {
-              axios.post(`/api/signin`,values)
+              axios.post(`/api/signin`,data)
               .then(res => {
                 resolve(res.data.message);
                 signIn('credentials', {
-                  identifier: `${values.username || values.email}`,
-                  password: values.password,
+                  identifier: `${data.username || data.email}`,
+                  password: data.password,
                   redirect: false,
                 }).then(() => setTimeout(() => router.push("/"), 500))
                 .catch((err) => console.log(err))
