@@ -55,7 +55,7 @@ export const {handlers:{POST , GET},auth,signIn,signOut ,unstable_update} = Next
                   token.profile_picture = user.profile_picture;
                   token.isVerified = user.isVerified;
                   token.verifyCode = btoa(user.verifyCode);
-                  token.isVerifyExpire = user.isVerifyExpire;
+                  token.verifyExpire = user.verifyExpire;
                   token.isAcceptingMessages = user.isAcceptingMessages;
                 }
                 return token;

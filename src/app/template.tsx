@@ -13,7 +13,7 @@ const Template = ({ children }: { children: React.ReactNode }) => {
     const lowerPathName = pathname.toLowerCase();
     const router = useRouter();
     const [session, setSession] = useState<Session | null>(null);
-    const { data: sessionData } = useSession();
+    const { data: sessionData ,update} = useSession();
     const [expireText, setExpireText] = useState('');
 
     useMemo(() => {
@@ -31,11 +31,6 @@ const Template = ({ children }: { children: React.ReactNode }) => {
         }
     }, [session, lowerPathName, router]);
 
-    useEffect( () => {
-        if(new Date(session?.user.isVerifyExpire) < new Date()){
-            
-        }
-    }, [session, router]);
 
     useMemo(() => {
         const checkVerifyExpire = () => {
