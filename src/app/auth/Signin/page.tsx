@@ -26,7 +26,7 @@ const SignIn = () =>
         });
         const router = useRouter();
         const onSwitch = () => setSwitcher(!switcher);
-        const signinIndicator =({data}:{values:z.infer<typeof SignInSchema>})=>
+        const signinIndicator =({data}:{data:z.infer<typeof SignInSchema>})=>
           {
             const promise = new Promise((resolve, reject) => {
               axios.post(`/api/signin`,data)
