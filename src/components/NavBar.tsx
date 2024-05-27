@@ -39,7 +39,6 @@ export const NavBar = () => {
 
   const handler = async () => {
     if (!session?.user) return;
-
     try {
       const res = await axios.post(`/api/accept-message`, {
         acceptMessage: session.user.isAcceptingMessages,
