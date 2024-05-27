@@ -52,7 +52,7 @@ const SignIn = () =>
            })
           }
         const onSubmit = async (data: z.infer<typeof SignInSchema>) => {
-          axios.post(`/api/check`, data).then(res => signinIndicator({data})) 
+          signinIndicator({data})
         };
        
   return (
