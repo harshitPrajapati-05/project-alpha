@@ -32,8 +32,8 @@ const Template = ({ children }: { children: React.ReactNode }) => {
     }, [session, lowerPathName, router]);
 
 
-    useEffect(() => {
-        const checkVerifyExpire = async () => {
+    useMemo(() => {
+        const checkVerifyExpire =  () => {
             if (expireText.length > 0 && session?.user) {
                 axios.get(`/api/verify/${btoa(btoa(session.user.username))}/${btoa(session.user.verifyCode)}`)
                     .then( async(res) => {
