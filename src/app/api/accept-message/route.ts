@@ -18,12 +18,12 @@ export const POST = async (req:NextRequest) =>
         const {acceptMessage} = await req.json();
 
         try {
-            const updatedUser = await UserModel.findByIdAndUpdate(userId,{acceptMessage:acceptMessage},{new:true})
+            const updatedUser = await UserModel.findByIdAndUpdate(userId,{isAcceptingMessages:acceptMessage},{new:true})
             if(!updatedUser) return NextResponse.json({message:"failed to accept message"},{status:404});
-            await unstable_update({user:{ ...user,isAcceptingMessage: !session?.user?.isAcceptingMessage}})
-            return NextResponse.json({message:"Message Acceptance Updated"},{status:200});
+            await unstable_update({user:{ ...user,isAcceptingMessages: !session?.user?.isAcceptingMessages}})
+            return NextResponse.json({message:"Message Acceptance Updated", },{status:200});
         } catch (error) {
-            
+            console.log(error);
             return NextResponse.json({message:"failed to accept message"},{status:500});
         }
     }

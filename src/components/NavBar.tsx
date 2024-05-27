@@ -43,6 +43,7 @@ export const NavBar = () => {
       const res = await axios.post(`/api/accept-message`, {
         acceptMessage: session.user.isAcceptingMessages,
       });
+      console.log(res)
       await update({ user: { isAcceptingMessage: !session.user.isAcceptingMessages } });
       toast.success(res.data.message);
     } catch (err:any) {
