@@ -71,7 +71,7 @@ export const POST = async (req:NextRequest,{params}:{params:{username:string , v
             if (isExpired) {
                 verifiedUser.isVerified = false;
                 verifiedUser.verifyExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-                verifiedUser.verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+                verifiedUser.verifyCode = Math.floor(100000 + Math.random() * 900000);
     
                 try {
                     await verifiedUser.save();
