@@ -14,8 +14,8 @@ declare module 'next-auth' {
       };
       isVerified: boolean;
       verifyCode: string;
-      isVerifyExpire: Date;
-      isAcceptingMessage: boolean;
+      verifyExpire: Date;
+      isAcceptingMessages: boolean;
     } & DefaultSession['user'];
   }
 
@@ -30,8 +30,8 @@ declare module 'next-auth' {
     };
     isVerified: boolean;
     verifyCode: string;
-    isVerifyExpire: Date;
-    isAcceptingMessage: boolean;
+    verifyExpire: Date;
+    isAcceptingMessages: boolean;
   }
 }
 
@@ -47,7 +47,7 @@ declare module 'next-auth/jwt' {
     };
     isVerified: boolean;
     verifyCode: string;
-    isVerifyExpire: Date;
-    isAcceptingMessage: boolean;
+    verifyExpire: Date;
+    isAcceptingMessages: boolean;
   }
 }

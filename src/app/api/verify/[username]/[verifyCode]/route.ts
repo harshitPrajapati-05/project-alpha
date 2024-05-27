@@ -23,15 +23,15 @@ export const POST = async (req:NextRequest,{params}:{params:{username:string , v
                         if(UnverifiedUser)
                             {
                                 const isMatch = UnverifiedUser.verifyCode = deVerifyCode;
-                                const isNotExpire = UnverifiedUser.isVerifyExpire > Date.now();
+                                const isNotExpire = UnverifiedUser.verifyExpire > Date.now();
                                 if(isMatch && isNotExpire )
                                     {
                                         UnverifiedUser.isVerified = true ;
                                         UnverifiedUser.verifyExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-                                        let isVerifyExpire = UnverifiedUser.verifyExpire
+                                        let verifyExpire = UnverifiedUser.verifyExpire
                                          UnverifiedUser.save()
                                          .then(async()=>{
-                                            await unstable_update({user:{...User, isVerified:true, isVerifyExpire: isVerifyExpire}});
+                                            await unstable_update({user:{...User, isVerified:true, verifyExpire: verifyExpire}});
                                             return NextResponse.json({message:"User is verified"}, {status:200});
                                         })
                                         .catch((err:Error)=> {return NextResponse.json({message:err.message},{status:500})})
@@ -65,17 +65,17 @@ export const POST = async (req:NextRequest,{params}:{params:{username:string , v
             }
     
             const isExpired = (User.isVerified === true) && 
-                              (new Date(User.isVerifyExpire) < new Date()) && 
-                              (new Date(verifiedUser.isVerifyExpire) < new Date());
+                              (new Date(User.verifyExpire) < new Date()) && 
+                              (new Date(verifiedUser.verifyExpire) < new Date());
     
             if (isExpired) {
                 verifiedUser.isVerified = false;
-                verifiedUser.isVerifyExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+                verifiedUser.verifyExpire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
                 verifiedUser.verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
     
                 try {
                     await verifiedUser.save();
-                    await unstable_update({ user: { ...User, isVerified: false, verifyCode: verifiedUser.verifyCode, isVerifyExpire: verifiedUser.isVerifyExpire } });
+                    await unstable_update({ user: { ...User, isVerified: false, verifyCode: verifiedUser.verifyCode, verifyExpire: verifiedUser.verifyExpire } });
                     return NextResponse.json({ message: "User is unverified" }, { status: 401 });
                 } catch (err:any) {
                     return NextResponse.json({ message: err.message }, { status: 500 });
@@ -84,8 +84,8 @@ export const POST = async (req:NextRequest,{params}:{params:{username:string , v
                 return NextResponse.json({
                     message: "User is verified",
                     dates: {
-                        session: User.isVerifyExpire,
-                        date: new Date(verifiedUser.isVerifyExpire)
+                        session: User.verifyExpire,
+                        date: new Date(verifiedUser.verifyExpire)
                     }
                 }, { status: 200 });
             }

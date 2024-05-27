@@ -42,9 +42,9 @@ export const NavBar = () => {
 
     try {
       const res = await axios.post(`/api/accept-message`, {
-        acceptMessage: session.user.isAcceptingMessage,
+        acceptMessage: session.user.isAcceptingMessages,
       });
-      await update({ user: { isAcceptingMessage: !session.user.isAcceptingMessage } });
+      await update({ user: { isAcceptingMessage: !session.user.isAcceptingMessages } });
       toast.success(res.data.message);
     } catch (err:any) {
       toast.error(err.response.data.message);
@@ -110,7 +110,7 @@ export const NavBar = () => {
                       Verify Account
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={handler}>
-                      Accepting Messages {session.user.isAcceptingMessage ? "✅" : "❌"}
+                      Accepting Messages {session.user.isAcceptingMessages ? "✅" : "❌"}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>Sign Out</DropdownMenuItem>
                   </DropdownMenuContent>
@@ -125,7 +125,7 @@ export const NavBar = () => {
               <li>
                 <Button onClick={() => signIn()}>Sign In</Button>
               </li>
-            </>
+            </> 
           )}
         </ul>
       </div>

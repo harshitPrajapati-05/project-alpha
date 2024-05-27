@@ -56,7 +56,7 @@ export const {handlers:{POST , GET},auth,signIn,signOut ,unstable_update} = Next
                   token.isVerified = user.isVerified;
                   token.verifyCode = btoa(user.verifyCode);
                   token.isVerifyExpire = user.isVerifyExpire;
-                  token.isAcceptingMessage = user.isAcceptingMessage;
+                  token.isAcceptingMessages = user.isAcceptingMessages;
                 }
                 return token;
             },
@@ -68,8 +68,8 @@ export const {handlers:{POST , GET},auth,signIn,signOut ,unstable_update} = Next
                   session.user.profile_picture = token.profile_picture;
                   session.user.isVerified = token.isVerified;
                   session.user.verifyCode = token.verifyCode;
-                  session.user.isVerifyExpire = token.isVerifyExpire;
-                  session.user.isAcceptingMessage = token.isAcceptingMessage;
+                  session.user.verifyExpire = token.verifyExpire;
+                  session.user.isAcceptingMessages = token.isAcceptingMessages;
                 }
                 return session;
               },
