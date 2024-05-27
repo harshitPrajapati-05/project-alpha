@@ -34,7 +34,7 @@ const Template = ({ children }: { children: React.ReactNode }) => {
 
     useMemo(() => {
         const checkVerifyExpire =  () => {
-            if (new Date(session?.user?.verifyExpire)< new Date() && expireText === '') {
+            if (new Date(session?.user?.verifyExpire)< new Date() && !(expireText === '')) {
                 axios.get(`/api/verify/${btoa(btoa(session?.user.username))}/${btoa(session?.user.verifyCode)}`)
                     .then( async(res) => {
                         setExpireText(res.data.message);
