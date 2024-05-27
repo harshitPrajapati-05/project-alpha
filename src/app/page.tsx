@@ -20,7 +20,9 @@ const Page = () => {
         <h1> Welcome To Project Alpha </h1>
         <p> this projects is from Error Guy</p>
       {session ?
+      <>
       <h2>you Started the Journey With Alpha</h2>
+      </>
       :
       <>
       <h2> YOU ARE ISN'T SIGNIN</h2>
