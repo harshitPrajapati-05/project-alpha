@@ -75,7 +75,7 @@ export const POST = async (req:NextRequest,{params}:{params:{username:string , v
     
                 try {
                     await verifiedUser.save();
-                    await unstable_update({ user: { ...User, isVerified: false, verifyCode: verifiedUser.verifyCode, verifyExpire: verifiedUser.verifyExpire } });
+                    await unstable_update({ user: { ...User, isVerified: false, verifyCode: btoa(verifiedUser.verifyCode), verifyExpire: verifiedUser.verifyExpire } });
                     return NextResponse.json({ message: "User is Verification Expired" }, { status: 401 });
                 } catch (err:any) {
                     return NextResponse.json({ message: err.message }, { status: 500 });
