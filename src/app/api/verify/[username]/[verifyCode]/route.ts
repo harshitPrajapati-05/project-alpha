@@ -23,7 +23,7 @@ export const POST = async (req:NextRequest,{params}:{params:{username:string , v
                         if(UnverifiedUser)
                             {
                                 const isMatch = UnverifiedUser.verifyCode = deVerifyCode;
-                                const isNotExpire = UnverifiedUser.verifyExpire > Date.now();
+                                const isNotExpire = new Date(UnverifiedUser.verifyExpire) > new Date();
                                 if(isMatch && isNotExpire )
                                     {
                                         UnverifiedUser.isVerified = true ;
