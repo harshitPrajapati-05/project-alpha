@@ -14,7 +14,7 @@ export const GET = async(req:NextRequest)=>
         const session = await auth();
         const User:User = session?.user;
     
-        if(!session || session?.user || !User) return NextResponse.json({message:"UnAuthenicated",},{status:401});
+        if(!session || session?.user || !User) return NextResponse.json({ success:false,message:"UnAuthenicated",},{status:401});
 
         const userId =  new mongoose.Types.ObjectId(User._id);
         
@@ -25,8 +25,8 @@ export const GET = async(req:NextRequest)=>
                 {$sort:{'message.createdAt':-1}},
                 {$group:{_id:'$_id', messages:{$push:'$messages'}}}
             ])
-            if(!user || user.length === 0) return NextResponse.json({message:"No User found"}, {status:404});
-            return NextResponse.json({messages:user[0].messages});
+            if(!user || user.length === 0) return NextResponse.json({success:false,message:"No User found"}, {status:404});
+            return NextResponse.json({success:true,messages:user[0].messages},{status:200});
         } catch (error) {
             return NextResponse.json({message:"Internal Server Error"}, {status:500});
         }

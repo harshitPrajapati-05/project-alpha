@@ -1,24 +1,25 @@
 "use client"
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Session } from "next-auth";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
+import{ useDebounceCallback} from "usehooks-ts"
 
 const Template = ({ children }: { children: React.ReactNode }) => {
     const pathname = usePathname();
     const lowerPathName = pathname.toLowerCase();
     const router = useRouter();
     const [session, setSession] = useState<Session | null>(null);
+    const delay = useDebounceCallback(setSession, 2000)
     const { data: sessionData, update } = useSession();
-    const [expireText, setExpireText] = useState('');
 
     useEffect(() => {
         if (sessionData) {
-            setSession(sessionData as Session);
+            delay(sessionData as Session);
         }
     }, [sessionData]);
 
@@ -29,32 +30,26 @@ const Template = ({ children }: { children: React.ReactNode }) => {
                 if (session?.user) {
                     router.replace(`/auth/Verify/${btoa(btoa(session.user.username))}/${btoa(session.user.verifyCode)}`);
                 }
-            }, 500);
+            }, 250);
             return () => clearTimeout(timeoutId); // Cleanup timeout on component unmount
         }
     }, [session, lowerPathName, router]);
-
+    console.log(session?.user?.verifyCode , btoa(session?.user?.verifyCode), )
     useEffect(() => {
-        const checkVerifyExpire = async () => {
-            if ((new Date(session?.user?.verifyExpire) < new Date()) && expireText === '') {
-                try {
-                    const res = await axios.get(`/api/verify/${btoa(btoa(session?.user.username))}/${btoa(session?.user.verifyCode)}`);
-                    setExpireText(res.data.message);
-                    await update({ user: { isVerified: false } });
-                    toast.success(res.data.message);
-                } catch (err:any) {
-                    setExpireText(err.response?.data?.message || "Error occurred");
-                    if( err.response?.data?.message ==="User isn't signed in" || 
-                        err.response?.data?.message === "User is Verification Expired" ||
-                        err.response?.data?.message === "User is not verified" ||
-                        err.response?.data?.message === "User is verified"
-                    )
-                    toast.error(err.response?.data?.message || "Error occurred");
+            if ((new Date(session?.user?.verifyExpire) < new Date())&& session?.user.isVerified ) 
+                {
+
+                        axios.get(`/api/verify/${btoa(btoa(session?.user.username))}/${btoa(session?.user.verifyCode)}`)
+                        .then((res)=>{
+                            if( res.data.success ==="warn" || res.data.success===true)
+                                {
+                                    toast.warning("Your account has been expired");
+                                    setTimeout(()=> router.refresh(),250)
+                                }
+                        })
+                        
                 }
-            }
-        };
-        checkVerifyExpire();
-    }, [expireText,session]);
+    },[ session , session?.user.isVerified]);
 
     return (session || pathname.startsWith("/auth") || pathname === "/") ? <>{children}</> : null;
 }

@@ -30,12 +30,12 @@ export const NavBar = () => {
   useEffect(() => {
     if (session?.user) {
       if (session.user.isVerified) {
-        setIsVerifying(true);
+         setTimeout(()=>setIsVerifying(true),200);
       } else {
         setTimeout(() => setIsVerifying(false), 6000);
       }
     }
-  }, [session]);
+  }, [session ,session?.user.isVerified]);
 
   const handler = async () => {
     if (!session?.user) return;
@@ -43,8 +43,9 @@ export const NavBar = () => {
       const res = await axios.post(`/api/accept-message`, {
         acceptMessage: session.user.isAcceptingMessages,
       });
-      await update({ user: { isAcceptingMessage: !session.user.isAcceptingMessages } });
-      toast.success(res.data.message);
+       update({ user: { isAcceptingMessage: !session.user.isAcceptingMessages } }).then(()=>
+        toast.success(res.data.message)
+      )
     } catch (err:any) {
       toast.error(err.response.data.message);
     }

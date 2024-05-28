@@ -8,5 +8,5 @@
 // console.log(oldStr, ogStr)
 
 
-let date = new Date(Date.now());
-console.log(Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15))
+let str = atob(atob("YUdGeWMyaHBkREV4TWc9PQ=="))
+console.log(str)

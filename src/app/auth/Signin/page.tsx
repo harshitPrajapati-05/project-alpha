@@ -31,18 +31,20 @@ const SignIn = () =>
             const promise = new Promise((resolve, reject) => {
               axios.post(`/api/signin`,data)
               .then(res => {
-                resolve(res.data.message);
-                signIn('credentials', {
-                  identifier: `${data.username || data.email}`,
-                  password: data.password,
-                  redirect: false,
-                }).then(() => setTimeout(() => router.push("/"), 500))
-                .catch((err) => console.log(err))
-                return true
+                if(res.data.success)
+                  {
+                  resolve(res.data.message);
+                  signIn('credentials', {
+                    identifier: `${data.username || data.email}`,
+                    password: data.password,
+                    redirect: false,
+                  }).then(() => setTimeout(() => router.push("/"), 400))
+                  .catch((err) => console.log(err))
+                }
               })
               .catch(err=> {
                 reject(err.response?.data.message);
-                return false
+                
               })
            })
            toast.promise(promise, {

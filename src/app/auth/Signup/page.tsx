@@ -23,7 +23,7 @@ const AuthPage = () =>
     const [username, setUsername] = React.useState("")
     const router = useRouter();
     const[data,setData] = React.useState<User>( {} as User)
-    const delayedUsernaming = useDebounceCallback(setUsername, 1000)
+    const delayedUsernaming = useDebounceCallback(setUsername, 1500)
     const form = useForm<z.infer<typeof SignUpSchema>>(
       {
         resolver: zodResolver(SignUpSchema),
@@ -49,7 +49,7 @@ const AuthPage = () =>
         {
           const promise = new Promise((resolve, reject) => {
              axios.get(`/api/check-username?username=${username}`)
-             .then(res => resolve(res.data.message))
+             .then(res =>  res.data.success && resolve(res.data.message))
              .catch((err) => reject(err.response?.data.message))
           })
           toast.promise(promise, {
@@ -60,16 +60,18 @@ const AuthPage = () =>
         }
     }, [username])
     const onSubmit = (values: z.infer<typeof SignUpSchema>) => {
-      setData(values)
        axios.post(`/api/signup`, values).then(res => {
-         signIn("credentials", {
-           identifier: `${values?.username || values?.email}`,
-           password: values?.password,
-           redirect: false,
-         }).then(() =>{
-          toast.success(res.data.message)
-          setTimeout(() => router.replace("/"), 200)}
-        ).catch((err) => console.log(err))
+         if(res.data.success)
+          {
+            signIn("credentials", {
+              identifier: `${values?.username || values?.email}`,
+              password: values?.password,
+              redirect: false,
+            }).then(() =>{
+             toast.success(res.data.message)
+             setTimeout(() => router.replace("/"), 200)}
+           ).catch((err) => console.log(err))
+          }
       })
        .catch(err =>toast.error(err.response?.data.message))
     }

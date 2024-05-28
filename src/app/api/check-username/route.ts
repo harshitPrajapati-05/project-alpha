@@ -12,7 +12,7 @@ export const GET = async (req:NextRequest) =>
     if(!zodedUsername.success) return NextResponse.json({message: zodedUsername.error.format()._errors},{status:400})
     await dbConnect();
     const user = await UserModel.findOne({username: zodedUsername.data});
-    if(user)return NextResponse.json({message: " Username is Already taken"},{status:404})
-    return NextResponse.json({message: "Username is Available"},{status:200})
+    if(user)return NextResponse.json({success:false,message: " Username is Already taken"},{status:404})
+    return NextResponse.json({success:true,message: "Username is Available"},{status:200})
 
 }

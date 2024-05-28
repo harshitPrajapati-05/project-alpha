@@ -4,6 +4,7 @@ import { UserModel } from './Models/User';
 import bcrypt from 'bcryptjs'
 import dbConnect from './lib/dbConnect';
 import { encode } from 'string-encode-decode';
+import { string } from 'zod';
 const credentials = Credentials({
     credentials: {
         identifier: {
@@ -54,7 +55,7 @@ export const {handlers:{POST , GET},auth,signIn,signOut ,unstable_update} = Next
                   token.email = user.email;
                   token.profile_picture = user.profile_picture;
                   token.isVerified = user.isVerified;
-                  token.verifyCode = btoa(user.verifyCode);
+                  token.verifyCode = btoa(user.verifyCode) ;
                   token.verifyExpire = user.verifyExpire;
                   token.isAcceptingMessages = user.isAcceptingMessages;
                 }
@@ -67,7 +68,7 @@ export const {handlers:{POST , GET},auth,signIn,signOut ,unstable_update} = Next
                   session.user.email = token.email;
                   session.user.profile_picture = token.profile_picture;
                   session.user.isVerified = token.isVerified;
-                  session.user.verifyCode = token.verifyCode;
+                  session.user.verifyCode= token.verifyCode;
                   session.user.verifyExpire = token.verifyExpire;
                   session.user.isAcceptingMessages = token.isAcceptingMessages;
                 }
@@ -78,7 +79,7 @@ export const {handlers:{POST , GET},auth,signIn,signOut ,unstable_update} = Next
             {
             strategy:'jwt',
             maxAge:30 * 24 * 60 * 60,
-            updateAge:15 * 24 * 60 * 60,
+            updateAge:7 * 24 * 60 * 60,
             }
     }
 )

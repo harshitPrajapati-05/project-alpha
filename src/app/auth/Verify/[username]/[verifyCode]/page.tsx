@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import React, { useEffect, useMemo, useState } from 'react'
 import moment from 'moment';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,7 @@ import { Session } from 'next-auth';
 
 const Verify = () => {
     const {username, verifyCode} = useParams();
+    const router = useRouter();
     const [session , setSession]= useState<Session|null>()
     const { data: sessionData ,update} = useSession()
     useMemo(()=> {if( sessionData === null || sessionData === undefined) return null;
@@ -23,8 +24,11 @@ const Verify = () => {
     const verifyAccount = async () => { 
          axios.post(`/api/verify/${username}/${verifyCode}`)
          .then( async (res) => {
-          console.log(res)
-            await update({user:{isVerified:true}})
+          if(res.data.success){
+             update({user:{isVerified:true}}).then(()=>{toast.success("Account Verified")
+            router.refresh();
+             }
+             )};
          })
          .catch((err) => {
             console.log(err)
