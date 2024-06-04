@@ -2,7 +2,7 @@
 import { SignUpSchema } from '@/Schmea/SignUp'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,16 +13,18 @@ import { useDebounceCallback } from 'usehooks-ts'
 import {Card,CardContent,CardFooter,CardHeader,CardTitle,} from "@/components/ui/card"
 import {toast} from "sonner"
 import { CrossCircledIcon, PlusCircledIcon} from "@radix-ui/react-icons"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useRouter } from 'next/navigation'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 
 const AuthPage = () =>
   {
     type  User = z.infer<typeof SignUpSchema>
     const [username, setUsername] = React.useState("")
     const router = useRouter();
-    const[data,setData] = React.useState<User>( {} as User)
+    const [user , setUser]= useState<User|null>()
+    const { data: sessionData ,update} = useSession()
+    useEffect(()=> { sessionData  && setUser(sessionData.user as User) },[sessionData, user]);
+
     const delayedUsernaming = useDebounceCallback(setUsername, 1500)
     const form = useForm<z.infer<typeof SignUpSchema>>(
       {
@@ -75,6 +77,8 @@ const AuthPage = () =>
       })
        .catch(err =>toast.error(err.response?.data.message))
     }
+
+    if(user) router.push(`/`);
 
     return (
       <Card className="w-full max-w-md mx-auto my-5 dark bg-transparent/80">

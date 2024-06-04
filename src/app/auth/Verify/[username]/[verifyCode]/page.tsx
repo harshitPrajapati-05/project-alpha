@@ -9,16 +9,15 @@ import moment from 'moment';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { TextRevealCard, TextRevealCardDescription, TextRevealCardTitle } from '@/components/ui/text-reveal-card';
-import { Session } from 'next-auth';
+import {  User } from 'next-auth';
 
 
 const Verify = () => {
     const {username, verifyCode} = useParams();
     const router = useRouter();
-    const [session , setSession]= useState<Session|null>()
+    const [user , setUser]= useState<User|null>()
     const { data: sessionData ,update} = useSession()
-    useMemo(()=> {if( sessionData === null || sessionData === undefined) return null;
-      setSession(sessionData as Session) },[sessionData]);
+    useEffect(()=> { sessionData  && setUser(sessionData.user as User) },[sessionData, user]);
 
      
     const verifyAccount = async () => { 
@@ -45,11 +44,11 @@ const Verify = () => {
         </CardHeader>
         <CardContent>
             {
-              session?.user?.isVerified ? 
+              user?.isVerified ? 
               <>
                <TextRevealCard className='w-full text-center  text-sm max-w-md mx-auto my-5 dark bg-transparent/80 '
         text="Verify Code"
-        revealText={`${atob(session?.user?.verifyCode)}`}
+        revealText={`${atob(user?.verifyCode)}`}
       >
         <TextRevealCardTitle>
           Sometimes, you just need to see it.
@@ -58,7 +57,7 @@ const Verify = () => {
           it Might help to verify yourself on other platforms
         </TextRevealCardDescription>
       </TextRevealCard>
-      <h3>You will unVerified on ::{ new Date(session.user.verifyExpire).toDateString()}</h3>
+      <h3>You will unVerified on ::{ new Date(user?.verifyExpire).toDateString()}</h3>
               </>:
               <Button onClick={verifyAccount} className='w-full'>Verify Account</Button>
             }

@@ -30,18 +30,15 @@ export const POST = async (req:NextRequest) =>
 
 export const GET = async (req:NextRequest) =>
     {
-        await dbConnect();
-        const session = await auth();
-        const user:User = session?.user;
-        if(!session || !session?.user) return NextResponse.json({message:"Not Authenticated"},{status:401});
-        const userId = user._id;
+        const { searchParams } = new URL(req.url);
+        const queryParams = {username: searchParams.get('username')};
         try {
-            const foundedUser = await UserModel.findById(userId);
+            const foundedUser = await UserModel.findOne(queryParams);
     
             if(!foundedUser) return NextResponse.json({success:false,message:"User not found"},{status:404});
-            {
-                return NextResponse.json({ success:true ,isAccpetingMessages:foundedUser.isAccpetingMessage},{status:200});
-            }
+            
+            return NextResponse.json({ success:true ,isAccpetingMessages:foundedUser.isAcceptingMessages},{status:200});
+            
         } catch (error) {
             
             return NextResponse.json({success:false,message:"failed to get User Acceptance"}, {status:500});

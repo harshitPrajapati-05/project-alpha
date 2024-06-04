@@ -23,7 +23,9 @@ export default  function RootLayout({
         <AuthProvider>
         <NavBar/>
         {children}
-        <Toaster richColors={true} />
+        <Toaster richColors={true}
+        closeButton={true}
+         />
         </AuthProvider>
       </body>
     </html>

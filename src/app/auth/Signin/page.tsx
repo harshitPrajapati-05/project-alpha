@@ -1,5 +1,5 @@
 "use client"
-import React ,{useState}from 'react'
+import React ,{useEffect, useState}from 'react'
 import {Card,CardContent,CardDescription,CardFooter,CardHeader,CardTitle,} from "@/components/ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
@@ -9,12 +9,16 @@ import { SignInSchema } from '@/Schmea/SignIn'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
 import axios, { AxiosError } from 'axios'
-import { signIn} from "next-auth/react";
+import { signIn, useSession} from "next-auth/react";
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { User } from 'next-auth'
 const SignIn = () =>
 {
+  const [user , setUser]= useState<User|null>()
+    const { data: sessionData ,update} = useSession()
+    useEffect(()=> { sessionData  && setUser(sessionData.user as User) },[sessionData, user]);
         const [switcher , setSwitcher] = useState(false);
         const form = useForm<z.infer<typeof SignInSchema>>({
             resolver: zodResolver(SignInSchema),
@@ -56,6 +60,8 @@ const SignIn = () =>
         const onSubmit = async (data: z.infer<typeof SignInSchema>) => {
           signinIndicator({data})
         };
+
+        if(user) router.push(`/`)
        
   return (
     <Card className="w-full max-w-md mx-auto my-5 dark bg-transparent/80">

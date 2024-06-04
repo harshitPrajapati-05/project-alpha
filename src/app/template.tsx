@@ -1,45 +1,37 @@
 "use client"
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import axios, { AxiosError } from "axios";
-import { Session } from "next-auth";
-import { useSession, signIn, signOut } from "next-auth/react";
+
+import axios from "axios";
+import { User } from "next-auth";
+import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import{ useDebounceCallback} from "usehooks-ts"
+
 
 const Template = ({ children }: { children: React.ReactNode }) => {
     const pathname = usePathname();
     const lowerPathName = pathname.toLowerCase();
     const router = useRouter();
-    const [session, setSession] = useState<Session | null>(null);
-    const delay = useDebounceCallback(setSession, 2000)
-    const { data: sessionData, update } = useSession();
-
-    useEffect(() => {
-        if (sessionData) {
-            delay(sessionData as Session);
-        }
-    }, [sessionData]);
-
+    const [user , setUser]= useState<User|null>()
+    const { data: sessionData ,update} = useSession()
+    useEffect(()=> { sessionData  && setUser(sessionData.user as User) },[sessionData, user]);
+    console.log(user?._id,user?.id)
 
     useEffect(() => {
         if (lowerPathName.includes('verify')) {
             const timeoutId = setTimeout(() => {
-                if (session?.user) {
-                    router.replace(`/auth/Verify/${btoa(btoa(session.user.username))}/${btoa(session.user.verifyCode)}`);
+                if (user) {
+                    router.replace(`/auth/Verify/${btoa(btoa(user?.username))}/${btoa(user?.verifyCode)}`);
                 }
             }, 250);
             return () => clearTimeout(timeoutId); // Cleanup timeout on component unmount
         }
-    }, [session, lowerPathName, router]);
-    console.log(session?.user?.verifyCode , btoa(session?.user?.verifyCode), )
+    }, [user, lowerPathName])
     useEffect(() => {
-            if ((new Date(session?.user?.verifyExpire) < new Date())&& session?.user.isVerified ) 
+            if ((new Date(user?.verifyExpire!) < new Date())&& user?.isVerified ) 
                 {
 
-                        axios.get(`/api/verify/${btoa(btoa(session?.user.username))}/${btoa(session?.user.verifyCode)}`)
+                        axios.get(`/api/verify/${btoa(btoa(user?.username))}/${btoa(user?.verifyCode)}`)
                         .then((res)=>{
                             if( res.data.success ==="warn" || res.data.success===true)
                                 {
@@ -49,9 +41,9 @@ const Template = ({ children }: { children: React.ReactNode }) => {
                         })
                         
                 }
-    },[ session , session?.user.isVerified]);
+    },[ user , user?.isVerified]);
 
-    return (session || pathname.startsWith("/auth") || pathname === "/") ? <>{children}</> : null;
+    return (user || pathname.startsWith("/auth") || pathname === "/" || pathname.startsWith(`/Send`)) ? <>{children}</> : null;
 }
 
 export default Template;

@@ -1,8 +1,11 @@
 import mongoose, {Schema } from "mongoose"
 
 export interface Message extends Document {
+    [x: string]: any;
     content: string;
     createdAt: Date;
+    username: string;
+    sender: string;
   }
   
 const MessageSchema: Schema<Message> = new mongoose.Schema({
@@ -14,6 +17,14 @@ const MessageSchema: Schema<Message> = new mongoose.Schema({
       type: Date,
       required: true,
       default: Date.now,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    sender: {
+      type: String,
+      required: true,
     },
   });
   
