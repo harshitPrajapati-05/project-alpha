@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useParams, useRouter } from 'next/navigation'
 import React, { useEffect, useMemo, useState } from 'react'
-import moment from 'moment';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { TextRevealCard, TextRevealCardDescription, TextRevealCardTitle } from '@/components/ui/text-reveal-card';
