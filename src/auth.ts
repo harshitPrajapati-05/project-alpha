@@ -1,10 +1,8 @@
-import NextAuth, { AuthError } from 'next-auth';
+import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { UserModel } from './Models/User';
 import bcrypt from 'bcryptjs'
 import dbConnect from './lib/dbConnect';
-import { encode } from 'string-encode-decode';
-import { string } from 'zod';
 const credentials = Credentials({
     credentials: {
         identifier: {

@@ -1,20 +1,20 @@
 "use client"
 import { sendMessage } from "@/Schmea/sendMessage";
-import tinyMCE ,{ Editor } from "@tinymce/tinymce-react";
+import { Editor } from "@tinymce/tinymce-react";
 import React, { useEffect, useState } from 'react';
 import { useDebounceCallback } from "usehooks-ts";
 import { useSession } from "next-auth/react";
-import { Session, User } from "next-auth";
+import {  User } from "next-auth";
 import { z } from "zod";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import uniqid from 'uniqid'
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { toast } from "sonner";
 import Link from "next/link";
 import {username as Username} from "@/Schmea/SignUp"
-import { HomeIcon, LockClosedIcon, PaperPlaneIcon } from "@radix-ui/react-icons";
+import { HomeIcon, PaperPlaneIcon } from "@radix-ui/react-icons";
 type MessageType = z.infer<typeof sendMessage>
 const SendMessage = () => 
   {
