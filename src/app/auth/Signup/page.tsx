@@ -15,6 +15,7 @@ import {toast} from "sonner"
 import { CrossCircledIcon, PlusCircledIcon} from "@radix-ui/react-icons"
 import { useRouter } from 'next/navigation'
 import { signIn, useSession } from 'next-auth/react'
+import { Avatar , AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 const AuthPage = () =>
   {
