@@ -86,7 +86,7 @@ const SendMessage = () =>
       <CardContent className=" flex flex-col h-min py-1  ">
 
                 <Editor
-                  apiKey="855zvfpkz2jzyfrcvzhbzygpo62dxhaa3ekyepmr9fgde15w"
+                  apiKey={`${process.env.NEXT_PUBLIC_TINYMCE_API_KEY}`}
                   inline={false}
                   id="editor1"
                   onEditorChange={(res) =>{
