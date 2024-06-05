@@ -7,7 +7,7 @@ import axios from "axios";
 import { User } from "next-auth";
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
-const page = () => {
+const MessagesPage = () => {
     const [user , setUser]= useState<User|null>()
     const { data: sessionData ,update} = useSession()
     useEffect(()=> { sessionData  && setUser(sessionData.user as User) },[sessionData, user]);
@@ -19,7 +19,7 @@ const page = () => {
           response.data.success && setMessages(response.data.messages);
           !response.data.success && setError(response.data.message);
       },
-      [user?.name, user ,messages],
+      [],
     )
     useEffect(() => {
         if(messages.length > 0) return;
@@ -55,4 +55,4 @@ const page = () => {
   )
 }
 
-export default page
+export default MessagesPage
