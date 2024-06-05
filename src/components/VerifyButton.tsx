@@ -2,7 +2,6 @@
 import { useRouter } from "next/navigation"
 import { Button } from "./ui/button"
 import { signIn, useSession } from "next-auth/react";
-import { decode } from "string-encode-decode";
 
 
 export const  VerifyButton = () => 
