@@ -6,23 +6,21 @@ import { Session } from 'next-auth';
 import { Button } from '@/components/ui/button';
 import { User } from 'next-auth';
 import { MessageCard } from '@/components/MessageCard';
+import { LinkPreview } from '@/components/ui/link-preview';
 
 const Page = () => {
   const [user , setUser]= useState<User|null>()
   const { data: sessionData ,update} = useSession()
   useEffect(()=> { sessionData  && setUser(sessionData.user as User) },[sessionData, user]);
-  return (
-    <Card className="w-full max-w-md mx-auto space-y-2  text-white/80 font-semibold text-center bg-transparent/80 my-14">
-        <h1> Welcome To Project Alpha </h1>
-        <p> this projects is from Error Guy</p>
-      {user ?<h2>you Started the Journey With Alpha</h2>:
-      <>
-      <h2> YOU ARE ISN&apos;T SIGNIN</h2>
-      <Button onClick={()=>signIn()}>sign in</Button>
-      </>
-      }
-    </Card>
-  );
+  
+  if(!user) return (
+    <p className="text-neutral-500 dark:text-neutral-400 text-xl md:text-3xl max-w-3xl mx-28  mt-28">
+       You Might Need to  
+        <LinkPreview url="https://project-alpha-vert.vercel.app/auth/Signin?callbackUrl=https%3A%2F%2Fproject-alpha-vert.vercel.app%2F" quality={100} width={225}  height={150} className="font-bold border-transparent">
+          Tailwind CSS
+        </LinkPreview>{" "}
+    </p>
+  )
 }
 
 export default Page;

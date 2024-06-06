@@ -16,7 +16,10 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
 import Link from "next/link";
-
+import  uniqid  from "uniqid"
+import { HomeIcon } from "@radix-ui/react-icons";
+import Image from "next/image";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 export const NavBar = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -48,89 +51,93 @@ export const NavBar = () => {
     }
   };
 
-  if (!sessionData || !user) return null;
 
   return (
-    <nav>
-      <div className="fixed top-0 right-2 w-fit h-min  bg-black/55 text-white/90">
-        <ul className="flex justify-evenly items-center space-x-3">
-          {user ? (
-            <>
-              <li>
-                {user?.profile_picture?.secure_url && (
-                  <CldImage
-                    alt={user?.profile_picture.filename}
-                    src={user?.profile_picture.secure_url}
-                    height={50}
-                    priority
-                    className="border border-white/70 rounded-xl"
-                    width={50}
-                  />
-                )}
-              </li>
-              <li className="text-center flex flex-col items-center">
-                {user?.username && (
-                  <>
-                    {user?.username}
-                    {isVerifying ? (
-                      user?.isVerified ? (
-                        <p className="text-[9px] font-bold flex text-green-500">
-                          Verified
-                          <CheckBadgeIcon className="w-4 h-4" />
-                        </p>
-                      ) : (
-                        <p className="text-[9px] font-bold flex text-sky-500">
-                          Verifying
-                          <ArrowPathIcon className="animate-spin w-4 h-4" />
-                        </p>
-                      )
-                    ) : (
-                      <p className="text-[9px] font-bold flex text-red-500">
-                        Not Verified
-                        <ExclamationCircleIcon className="w-4 h-4" />
-                      </p>
-                    )}
-                  </>
-                )}
-              </li>
-              <li>
-                <DropdownMenu>
+    <nav className=" bg-orange-500/90 w-full card h-8 sticky top-0  md:w-full ">
+        <ul className="flex  justify-between font-bold  items-center  px-3">
+          <li className="">
+           {user?  
+           <HoverCard openDelay={10}  closeDelay={10}>
+           <HoverCardTrigger asChild>
+           <CldImage
+            src={`${user?.profile_picture?.secure_url!}`}
+            alt={user?.profile_picture?.filename!}
+            width={50}
+            height={50}
+            crop={"fill"}
+            priority={true}
+            quality={100}
+            radius={100}
+            preserveTransformations
+            border={{
+              color: "white",
+              width: 10,
+              radius: 50,
+
+            }} 
+            className=" flex  border-2 rounded-2xl"
+            />
+           </HoverCardTrigger>
+           <HoverCardContent className="rounded-2xl text-[10px] dark p-4 text-wrap  h-fit w-fit text-white">
+           <p className="flex ">Username::{user?.username}</p>
+           <p> Email::{user?.email}</p>
+           <p className={`${user?.isAcceptingMessages ? "text-green-500" : "text-red-500"}`}> { user?.isAcceptingMessages? "online" : "offline"}</p>
+           </HoverCardContent>
+           </HoverCard>
+            :
+            <Image
+            src="/images.jpeg"
+            alt="profile"
+            width={45}
+            height={45}
+            priority={true}
+            quality={100}
+            className="rounded-2xl flex  items-center  justify-center align-middle text-center   border-2"
+            />
+          }
+            {user && <span className="fixed -mt-3 ml-8">
+            {isVerifying ? (
+                      user?.isVerified ? 
+                      <CheckBadgeIcon className="w-4 h-4  stroke-white   font-semibold  flex text-green-500" />
+                      : 
+                      <ArrowPathIcon className="animate-spin w-4 h-4 stroke-white font-semibold flex text-sky-500" />
+
+                    ) :<ExclamationCircleIcon className="w-4 h-4  stroke-white  font-semibold flex text-red-500" />
+                    }
+           </span>}
+              
+              
+
+          </li>
+          <li>
+          <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Bars4Icon className="w-6 h-6" />
+                    <Bars4Icon className="w-6 h-6  flex  mb-4" />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-transparent/70 text-white/80 mt-8">
-                    <DropdownMenuItem asChild >
+                  <DropdownMenuContent className="dark mt-auto">
+                     {user && <DropdownMenuItem asChild >
                         <Link href={`/auth/Verify/${btoa(btoa(user?.username))}/${btoa(user?.verifyCode)}` || `/verify`}>
                       Verify Account
                     </Link>
-                    </DropdownMenuItem>
-                    
-                    <DropdownMenuItem asChild>
+                    </DropdownMenuItem>}
+                    {pathname==='/Send' &&  <DropdownMenuItem  asChild> 
+                    <Link  href={`/`} className="flex justify-center"  > <HomeIcon className="font-bold"/></Link>
+                    </DropdownMenuItem>}
+                    {user && <DropdownMenuItem asChild>
                       <Link  href={`/Messages`}> Messages</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={handler}>
+                    </DropdownMenuItem>}
+                    {user && <DropdownMenuItem onClick={handler}>
                       Accepting Messages {user?.isAcceptingMessages ? "✅" : "❌"}
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
+                    </DropdownMenuItem>}
+                    {!(pathname==='/Send') && <DropdownMenuItem asChild>
                       <Link  href={`/Send`}> Send Messages</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>Sign Out</DropdownMenuItem>
+                    </DropdownMenuItem>}
+                    {!user && <DropdownMenuItem  className="flex justify-center" onClick={() => signIn()}>Sign In</DropdownMenuItem>}
+                   {user && <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>Sign Out</DropdownMenuItem>}
                   </DropdownMenuContent>
                 </DropdownMenu>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <h2>Error Guy</h2>
-              </li>
-              <li>
-                <Button onClick={() => signIn()}>Sign In</Button>
-              </li>
-            </> 
-          )}
+          </li>
         </ul>
-      </div>
     </nav>
   );
 };

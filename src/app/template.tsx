@@ -1,5 +1,6 @@
 "use client"
 
+import { AuroraBackground } from "@/components/ui/aurora-background";
 import axios from "axios";
 import { User } from "next-auth";
 import { useSession } from "next-auth/react";

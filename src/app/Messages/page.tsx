@@ -36,7 +36,7 @@ const MessagesPage = () => {
    <>
    {
      messages.length > 0 ?
-     <Card className=" grid grid-cols-3 mt-20 p-4 gap-4 mx-10  bg-transparent/95">
+     <Card className=" grid grid-cols-3 mt-20 p-4 gap-4 mx-10  dark">
       {
       messages.map((message , index)=>
            <MessageCard
@@ -47,7 +47,7 @@ const MessagesPage = () => {
     )
     }
    </Card>:
-   <Card className=" mt-20 p-4 gap-4 mx-10 w-fit  bg-transparent/95">
+   <Card className=" mt-20 p-4 gap-4 mx-10 w-fit  dark">
     <h1 className="text-center text-2xl text-white">No Messages</h1>
    </Card>
 }

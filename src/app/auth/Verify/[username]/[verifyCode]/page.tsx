@@ -37,7 +37,7 @@ const Verify = () => {
   
   return (
     <>
-    <Card className='w-full max-w-md mx-auto my-5 dark bg-transparent/80 '>
+    <Card className='w-full max-w-md mx-auto my-5 dark dark'>
         <CardHeader className='text-center font-bold'>
             <h1>Verify Your Account</h1>
         </CardHeader>
@@ -45,7 +45,7 @@ const Verify = () => {
             {
               user?.isVerified ? 
               <>
-               <TextRevealCard className='w-full text-center  text-sm max-w-md mx-auto my-5 dark bg-transparent/80 '
+               <TextRevealCard className='w-full text-center  text-sm max-w-md mx-auto my-5 dark  '
         text="Verify Code"
         revealText={`${atob(user?.verifyCode)}`}
       >

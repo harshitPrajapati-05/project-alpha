@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
-import { CldUploadWidget } from 'next-cloudinary'
+import { CldImage, CldUploadWidget } from 'next-cloudinary'
 import axios from 'axios'
 import { useDebounceCallback } from 'usehooks-ts'
 import {Card,CardContent,CardFooter,CardHeader,CardTitle,} from "@/components/ui/card"
@@ -16,6 +16,7 @@ import { CrossCircledIcon, PlusCircledIcon} from "@radix-ui/react-icons"
 import { useRouter } from 'next/navigation'
 import { signIn, useSession } from 'next-auth/react'
 import { Avatar , AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import Image from 'next/image'
 
 const AuthPage = () =>
   {
@@ -82,7 +83,7 @@ const AuthPage = () =>
     if(user) router.push(`/`);
 
     return (
-      <Card className="w-full max-w-md mx-auto my-5 dark bg-transparent/80">
+      <Card className="w-full max-w-md mx-auto my-5 dark">
         <CardHeader>
           <CardTitle>Sign Up </CardTitle>
         </CardHeader>
@@ -137,7 +138,7 @@ const AuthPage = () =>
             <FormItem className='flex justify-center  items-center flex-col'>
               <FormLabel>Profile Picture</FormLabel>
               <FormControl>
-              { image.secure_url === "" ? <CldUploadWidget  uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET} options={{maxFiles: 1 , resourceType: "auto" , folder:"profilePictures" , cropping:true}} 
+              { image.secure_url === "" ? <CldUploadWidget  uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}  options={{maxFiles: 1 , resourceType: "auto" , folder:"profilePictures" , cropping: true }} 
               onSuccess={
                 (res:any)=> 
                   { if(res?.info)
@@ -164,10 +165,7 @@ const AuthPage = () =>
                 </CldUploadWidget>
                 :
                 <>
-                <Avatar className='w-20 h-20 rounded-full'>
-                    <AvatarImage src={image.secure_url}  />
-                    <AvatarFallback>{image.file_name}</AvatarFallback>
-                  </Avatar>
+                <CldImage  alt="Profile Picture" src={image.secure_url} width={80} height={80} crop={`fill`} preserveTransformations priority={true} className=" rounded-full"/>
                   <CrossCircledIcon className="w-8 h-8 rounded-full" onClick={() => setImage({secure_url: "", public_id: "", file_name: ""})} />
                   </>
                 }

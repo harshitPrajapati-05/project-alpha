@@ -64,7 +64,7 @@ const SignIn = () =>
         if(user) router.push(`/`)
        
   return (
-    <Card className="w-full max-w-md mx-auto my-5 dark bg-transparent/80">
+    <Card className="w-full max-w-md mx-auto my-5 dark   ">
         <CardHeader>
         <CardTitle onDoubleClick={onSwitch} className='select-none'>Sign In </CardTitle>
         </CardHeader>

@@ -69,7 +69,7 @@ const SendMessage = () =>
     <>
     
       
-    <Card className={`bg-transparent/75  mx-10 -py-3 mt-20 flex flex-col`} >
+    <Card className={`dark  mx-10 -py-3 mt-6  flex flex-col`} >
       <CardHeader className="flex items-center  py-2 text-white justify-between px-5 flex-row">
 
       <h4  className=" font-bold flex gap-1 items-center">Send Message To
@@ -79,9 +79,6 @@ const SendMessage = () =>
       );
       }}/>
       </h4>
-      {!user && <Button   asChild={true}>
-        <Link href={`/`}><HomeIcon/></Link>
-      </Button>}
       </CardHeader>
       <CardContent className=" flex flex-col h-min py-1  ">
 
