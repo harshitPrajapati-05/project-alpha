@@ -20,7 +20,10 @@ const Page = () => {
           Tailwind CSS
         </LinkPreview>{" "}
     </p>
+    
   )
+  return null ;
 }
+
 
 export default Page;
