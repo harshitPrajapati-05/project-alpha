@@ -2,7 +2,7 @@
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { AlertDialog,AlertDialogAction,AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,} from '@/components/ui/alert-dialog'
 import { Button } from "./ui/button"
-import { CrumpledPaperIcon } from "@radix-ui/react-icons"
+import { Cross2Icon } from "@radix-ui/react-icons"
 import { User } from "next-auth"
 import { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
@@ -39,11 +39,11 @@ export const MessageCard =({message,onMessageDelete}:MessageCardProps)=>
         
         if(!user) return <></>
         return (
-                <Card className="w-full max-w-md  flex flex-col  justify-between  dark bg-slate-800/60">
-                <CardHeader className="flex-row py-2 px-1 justify-end">
+                <Card className="w-full max-w-sm mx-3 my-2 hover:shadow-[0px_0px_100px_rgba(56,189,248,1)]   flex flex-col  light justify-between   ">
+                <CardHeader className="flex-row py-1 px-1 justify-end">
                 <AlertDialog  >
                     <AlertDialogTrigger asChild>
-                        <Button className="" variant="destructive"><CrumpledPaperIcon/></Button>
+                        <Button className=" px-3 py-3" ><Cross2Icon/></Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent className="">
                             <AlertDialogHeader>
@@ -60,7 +60,7 @@ export const MessageCard =({message,onMessageDelete}:MessageCardProps)=>
                 </AlertDialog>
                 </CardHeader>
                 <CardContent>
-                    <p className="">{parse(message.content)}</p>
+                    <p className=" break-all">{parse(message.content)}</p>
                 </CardContent>
                 <CardFooter className="">
                     <p className="text-xs text-gray-700 dark:text-gray-100">{new Date(message.createdAt).toDateString()}</p>

@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import {motion} from "framer-motion"
 
 
 const Template = ({ children }: { children: React.ReactNode }) => {
@@ -43,7 +44,10 @@ const Template = ({ children }: { children: React.ReactNode }) => {
                 }
     },[ user , user?.isVerified]);
 
-    return (user || pathname.startsWith("/auth") || pathname === "/" || pathname.startsWith(`/Send`)) ? <>{children}</> : null;
+    return (user || pathname.startsWith("/auth") || pathname === "/" || pathname.startsWith(`/Send`)) ? <motion.div
+    initial={{ y:-700 }}
+    animate={{ y:0 , transition: { duration: 2 , ease:"easeInOut"} }}
+    >{children}</motion.div> : null;
 }
 
 export default Template;

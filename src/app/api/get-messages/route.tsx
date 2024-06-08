@@ -25,7 +25,7 @@ export const GET = async(req:NextRequest)=>
                 {$sort:{'message.createdAt':-1}},
                 {$group:{_id:'$_id', messages:{$push:'$messages'}}}
             ])
-            if(!user || user.length === 0) return NextResponse.json({success:false,message:"No Messages found"}, {status:404});
+            if(!user || user.length === 0) return NextResponse.json({success:false,message:"No Messages found"}, {status:203});
             return NextResponse.json({success:true,messages:user[0].messages},{status:200});
         } catch (error) {
             return NextResponse.json({message:"Internal Server Error"}, {status:500});

@@ -67,4 +67,34 @@
   border-radius: 1px;
 }
 
+@-webkit-keyframes color-change-2x {
+  0% {
+    background: #390099;
+  }
+  100% {
+    background: #FF5400;
+  }
+}
+@keyframes color-change-2x {
+  0% {
+    background: #390099;
+  }
+  25% {
+    background: #9E0059 ;
+  }
+  50% {
+    background: #FF0054;
+  }
+  75% {
+    background: #FFBD00 ;
+  } 
+  100% {
+    background: #FF5400;
+  }
+}
+
+.color-change-2x {
+	-webkit-animation: color-change-2x 10s linear infinite alternate both;
+	        animation: color-change-2x 10s linear infinite alternate both;
+}
 

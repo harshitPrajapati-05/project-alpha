@@ -4,7 +4,8 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import AuthProvider  from "@/context/AuthProvider";
 import { NavBar } from "@/components/NavBar";
-import { WavyBackground } from "@/components/ui/wavy-background";
+
+
 
 
 const inter = Roboto_Mono({ subsets: ["latin"] });
@@ -19,14 +20,13 @@ export default  function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
-      <body className={`${inter.className} dark`}>
-        <AuthProvider>
-        <WavyBackground   waveOpacity={0.8} waveWidth={70} colors={[`#2F6690`,`#3A7CA5`, `#D9DCD6`,`#16425B`,`#81C3D7`]} >
+      <body className={`${inter.className}  bg-zinc-950 `}>
+        <AuthProvider> 
         <NavBar/>
         {children}
-        </WavyBackground>
         <Toaster richColors={true}
         closeButton={true}
          />

@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import  uniqid  from "uniqid"
-import { HomeIcon } from "@radix-ui/react-icons";
+import { GearIcon, HomeIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 export const NavBar = () => {
@@ -51,9 +51,11 @@ export const NavBar = () => {
     }
   };
 
+ 
+
 
   return (
-    <nav className=" bg-orange-500/90 w-full card h-8 sticky top-0  md:w-full ">
+    <nav className="  w-full    md:w-full ">
         <ul className="flex  justify-between font-bold  items-center  px-3">
           <li className="">
            {user?  
@@ -62,8 +64,8 @@ export const NavBar = () => {
            <CldImage
             src={`${user?.profile_picture?.secure_url!}`}
             alt={user?.profile_picture?.filename!}
-            width={50}
-            height={50}
+            width={60}
+            height={60}
             crop={"fill"}
             priority={true}
             quality={100}
@@ -75,10 +77,10 @@ export const NavBar = () => {
               radius: 50,
 
             }} 
-            className=" flex  border-2 rounded-2xl"
+            className=" flex  mt-2  border-2 rounded-2xl"
             />
            </HoverCardTrigger>
-           <HoverCardContent className="rounded-2xl text-[10px] dark p-4 text-wrap  h-fit w-fit text-white">
+           <HoverCardContent className="rounded-2xl text-[10px] bg-gradient-to-tr from-black/20 to-black/60 p-4 text-wrap  h-fit w-fit text-white">
            <p className="flex ">Username::{user?.username}</p>
            <p> Email::{user?.email}</p>
            <p className={`${user?.isAcceptingMessages ? "text-green-500" : "text-red-500"}`}> { user?.isAcceptingMessages? "online" : "offline"}</p>
@@ -88,21 +90,21 @@ export const NavBar = () => {
             <Image
             src="/images.jpeg"
             alt="profile"
-            width={45}
-            height={45}
+            width={60}
+            height={60}
             priority={true}
             quality={100}
-            className="rounded-2xl flex  items-center  justify-center align-middle text-center   border-2"
+            className="rounded-2xl flex  items-center justify-center align-middle text-center   border-2"
             />
           }
-            {user && <span className="fixed -mt-3 ml-8">
+            {user && <span className="fixed -mt-4 ml-11">
             {isVerifying ? (
                       user?.isVerified ? 
-                      <CheckBadgeIcon className="w-4 h-4  stroke-white   font-semibold  flex text-green-500" />
+                      <CheckBadgeIcon className="w-5 h-5  stroke-white   font-semibold  flex text-green-500" />
                       : 
-                      <ArrowPathIcon className="animate-spin w-4 h-4 stroke-white font-semibold flex text-sky-500" />
+                      <ArrowPathIcon className="animate-spin w-5 h-5 stroke-white font-semibold flex text-sky-500" />
 
-                    ) :<ExclamationCircleIcon className="w-4 h-4  stroke-white  font-semibold flex text-red-500" />
+                    ) :<ExclamationCircleIcon className="w-5 h-5  stroke-white  font-semibold flex text-red-500" />
                     }
            </span>}
               
@@ -110,11 +112,11 @@ export const NavBar = () => {
 
           </li>
           <li>
-          <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Bars4Icon className="w-6 h-6  flex  mb-4" />
+          <DropdownMenu   >
+                  <DropdownMenuTrigger  asChild>
+                    <GearIcon    className={`w-7 h-7  text-white  animate-spin flex  mb-4`} />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="dark mt-auto">
+                  <DropdownMenuContent className="dark mt-auto  "  >
                      {user && <DropdownMenuItem asChild >
                         <Link href={`/auth/Verify/${btoa(btoa(user?.username))}/${btoa(user?.verifyCode)}` || `/verify`}>
                       Verify Account

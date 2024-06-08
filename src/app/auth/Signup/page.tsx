@@ -15,8 +15,7 @@ import {toast} from "sonner"
 import { CrossCircledIcon, PlusCircledIcon} from "@radix-ui/react-icons"
 import { useRouter } from 'next/navigation'
 import { signIn, useSession } from 'next-auth/react'
-import { Avatar , AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import Image from 'next/image'
+
 
 const AuthPage = () =>
   {
@@ -24,7 +23,7 @@ const AuthPage = () =>
     const [username, setUsername] = React.useState("")
     const router = useRouter();
     const [user , setUser]= useState<User|null>()
-    const { data: sessionData ,update} = useSession()
+    const { data: sessionData } = useSession()
     useEffect(()=> { sessionData  && setUser(sessionData.user as User) },[sessionData, user]);
 
     const delayedUsernaming = useDebounceCallback(setUsername, 1500)
@@ -83,9 +82,9 @@ const AuthPage = () =>
     if(user) router.push(`/`);
 
     return (
-      <Card className="w-full max-w-md mx-auto my-5 dark">
+      <Card  className="w-1/2   mx-auto  shadow-[0px_0px_100px_rgba(255,255,255,1)]   hover:shadow-[0px_0px_100px_rgba(56,189,248,1)]   mt-8 px-10   ">
         <CardHeader>
-          <CardTitle>Sign Up </CardTitle>
+          <CardTitle className='text-center text-xl'>Sign Up </CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -176,7 +175,7 @@ const AuthPage = () =>
             </form>
           </Form>
         </CardContent>
-        <CardFooter>
+        <CardFooter className='flex justify-end  items-end'>
           <Button type="button" onClick={ form.handleSubmit(onSubmit)}>Sign Up</Button>
         </CardFooter>
         </Card>

@@ -37,7 +37,7 @@ const Verify = () => {
   
   return (
     <>
-    <Card className='w-full max-w-md mx-auto my-5 dark dark'>
+    <Card className='w-full max-w-md mx-auto my-5  shadow-[0px_0px_60px_rgba(255,255,255,1)]   hover:shadow-[0px_0px_60px_rgba(56,189,248,1)] '>
         <CardHeader className='text-center font-bold'>
             <h1>Verify Your Account</h1>
         </CardHeader>

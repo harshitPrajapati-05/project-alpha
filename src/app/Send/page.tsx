@@ -15,6 +15,9 @@ import { toast } from "sonner";
 import Link from "next/link";
 import {username as Username} from "@/Schmea/SignUp"
 import { HomeIcon, PaperPlaneIcon } from "@radix-ui/react-icons";
+import { motion } from "framer-motion";
+
+
 type MessageType = z.infer<typeof sendMessage>
 const SendMessage = () => 
   {
@@ -68,9 +71,8 @@ const SendMessage = () =>
   return (
     <>
     
-      
-    <Card className={`dark  mx-10 -py-3 mt-6  flex flex-col`} >
-      <CardHeader className="flex items-center  py-2 text-white justify-between px-5 flex-row">
+    <Card className={`  mt-5 py-1 gap-1 mx-10  shadow-[0px_0px_60px_rgba(255,255,255,1)]   hover:shadow-[0px_0px_60px_rgba(56,189,248,1)]  `} >
+      <CardHeader className="flex items-center  py-2  justify-between px-5 flex-row">
 
       <h4  className=" font-bold flex gap-1 items-center">Send Message To
       <Input className="w-fit text-base "   onChange={(e)=>{ 
@@ -86,12 +88,14 @@ const SendMessage = () =>
                   apiKey={`${process.env.NEXT_PUBLIC_TINYMCE_API_KEY}`}
                   inline={false}
                   id="editor1"
+                  
                   onEditorChange={(res) =>{
 
                     res && setMessageState(prev=>({...prev,content:res}))
                     
                   }}
                   init={{
+                    height: 350, 
                     plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
                     toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
                   }}

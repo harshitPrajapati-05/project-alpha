@@ -1,6 +1,6 @@
 "use client"
 import React ,{useEffect, useState}from 'react'
-import {Card,CardContent,CardDescription,CardFooter,CardHeader,CardTitle,} from "@/components/ui/card"
+import {Card,CardContent,CardFooter,CardHeader,CardTitle,} from "@/components/ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import { useForm } from 'react-hook-form'
@@ -8,7 +8,7 @@ import { z } from 'zod'
 import { SignInSchema } from '@/Schmea/SignIn'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import { signIn, useSession} from "next-auth/react";
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
@@ -64,9 +64,10 @@ const SignIn = () =>
         if(user) router.push(`/`)
        
   return (
-    <Card className="w-full max-w-md mx-auto my-5 dark   ">
+    
+    <Card className=" w-1/2  mx-auto py-20   shadow-[0px_0px_100px_rgba(255,255,255,1)]   hover:shadow-[0px_0px_100px_rgba(56,189,248,1)]   mt-16 px-20  ">
         <CardHeader>
-        <CardTitle onDoubleClick={onSwitch} className='select-none'>Sign In </CardTitle>
+        <CardTitle onDoubleClick={onSwitch} className='select-none text-center -mt-8 text-2xl'>Sign In </CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -99,7 +100,7 @@ const SignIn = () =>
             </Form>
         </CardContent>
         <CardFooter>
-          <Button type="button" onClick={ form.handleSubmit(onSubmit)}>Sign Up</Button>
+          <Button type="button" onClick={ form.handleSubmit(onSubmit)}>Sign In</Button>
         </CardFooter>
     </Card>
   )
