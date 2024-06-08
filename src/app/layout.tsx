@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import AuthProvider  from "@/context/AuthProvider";
 import { NavBar } from "@/components/NavBar";
+import { WavyBackground } from "@/components/ui/wavy-background";
 
 
 
@@ -23,12 +24,13 @@ export default  function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.className}  bg-zinc-950 `}>
+      <body className={`${inter.className}   `}>
         <AuthProvider> 
+        <WavyBackground colors={['#dc5f5', '#f7aef8', '#b388eb', '#8093f1', '#72ddf7']}>
         <NavBar/>
         {children}
+        </WavyBackground>
         <Toaster richColors={true}
-        closeButton={true}
          />
         </AuthProvider>
       </body>
