@@ -39,17 +39,20 @@ export const NavBar = () => {
 
   const handler = async () => {
     if (!user) return;
-    if(!user?.isVerified) toast.error("you have to Verify your Account first");
-    try {
-      const res = await axios.post(`/api/accept-message`, {
-        acceptMessage: !user?.isAcceptingMessages,
-      });
-       update({ user: { isAcceptingMessage: !user?.isAcceptingMessages } }).then(()=>
-        toast.success(res.data.message)
-      )
-    } catch (err:any) {
-      toast.error(err.response.data.message);
+    if(!user?.isVerified) toast.error("you have to Verify your Account first")
+      else {
+        try {
+          const res = await axios.post(`/api/accept-message`, {
+            acceptMessage: !user?.isAcceptingMessages,
+          });
+           update({ user: { isAcceptingMessage: !user?.isAcceptingMessages } }).then(()=>
+            toast.success(res.data.message)
+          )
+        } catch (err:any) {
+          toast.error(err.response.data.message);
+        }
     }
+    
   };
 
   const signOutHandler = async () => {
