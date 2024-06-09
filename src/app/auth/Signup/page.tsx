@@ -82,7 +82,7 @@ const AuthPage = () =>
     if(user) router.push(`/`);
 
     return (
-      <Card  className="w-1/2   mx-auto  shadow-[0px_0px_100px_rgba(255,255,255,1)]   hover:shadow-[0px_0px_100px_rgba(56,189,248,1)]   mt-8 px-10   ">
+      <Card  className="w-1/2   mx-auto  shadow-[0px_0px_100px_rgba(255,255,255,1)]   hover:shadow-[0px_0px_100px_rgba(56,189,248,1)]   mt-4 px-10   ">
         <CardHeader>
           <CardTitle className='text-center text-xl'>Sign Up </CardTitle>
         </CardHeader>

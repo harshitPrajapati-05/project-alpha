@@ -16,6 +16,7 @@ declare module 'next-auth' {
       verifyCode: string;
       verifyExpire: Date;
       isAcceptingMessages: boolean;
+      isSignedIn: boolean;
     } & DefaultSession['user'];
   }
 
@@ -31,6 +32,7 @@ declare module 'next-auth' {
     isVerified: boolean;
     verifyCode: string;
     verifyExpire: Date;
+    isSignedIn: boolean;
     isAcceptingMessages: boolean;
   }
 }
@@ -49,5 +51,6 @@ declare module 'next-auth/jwt' {
     verifyCode: string;
     verifyExpire: Date;
     isAcceptingMessages: boolean;
+    isSignedIn: boolean;
   }
 }

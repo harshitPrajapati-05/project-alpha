@@ -40,7 +40,8 @@ export const {handlers:{POST , GET},auth,signIn,signOut ,unstable_update} = Next
         
         callbacks:
         {
-            jwt: async ({ token, trigger, session, user }) => {
+            
+            jwt: async ({ token, trigger, session, user  }) => {
                 if (trigger === 'update') {
                     return {
                        ...token,
@@ -56,6 +57,8 @@ export const {handlers:{POST , GET},auth,signIn,signOut ,unstable_update} = Next
                   token.verifyCode = btoa(user.verifyCode) ;
                   token.verifyExpire = user.verifyExpire;
                   token.isAcceptingMessages = user.isAcceptingMessages;
+                  token.isSignedIn = user.isSignedIn;
+                  token.exp = Math.floor(Date.now() / 1000) + (30 * 24 * 60 * 60);
                 }
                 return token;
             },
@@ -69,6 +72,8 @@ export const {handlers:{POST , GET},auth,signIn,signOut ,unstable_update} = Next
                   session.user.verifyCode= token.verifyCode;
                   session.user.verifyExpire = token.verifyExpire;
                   session.user.isAcceptingMessages = token.isAcceptingMessages;
+                  session.user.isSignedIn = token.isSignedIn;
+                  session.user.exp = token.exp;
                 }
                 return session;
               },

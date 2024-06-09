@@ -36,6 +36,7 @@ const MessageSchema: Schema<Message> = new mongoose.Schema({
     verifyExpire: Date; 
     isVerified: boolean;
     isAcceptingMessages: boolean;
+    isSignedIn: boolean;
     messages: Message[];
     profile_picture: {
       secure_url: string;
@@ -58,6 +59,7 @@ const User: Schema<User> = new Schema
         isVerified: {type: Boolean, default: false},
         verifyCode:{ type: String, requried:[true, "Verify code is required"]},
         verifyExpire:{ type: Date, required:[true, "Verify expire is required"]},
+        isSignedIn: {type: Boolean, default: false},
         isAcceptingMessages: {type: Boolean, default: false},
         messages: [MessageSchema],
     }

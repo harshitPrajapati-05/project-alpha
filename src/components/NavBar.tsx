@@ -39,6 +39,7 @@ export const NavBar = () => {
 
   const handler = async () => {
     if (!user) return;
+    if(!user?.isVerified) toast.error("you have to Verify your Account first");
     try {
       const res = await axios.post(`/api/accept-message`, {
         acceptMessage: !user?.isAcceptingMessages,
@@ -51,6 +52,11 @@ export const NavBar = () => {
     }
   };
 
+  const signOutHandler = async () => {
+      axios.post(`/api/signout`)
+      .then(res =>  setTimeout(() =>signOut({callbackUrl:"/"}), 200))
+      .catch((err:any) => toast.error(err.response.data.message) )
+  }
  
 
 
@@ -135,7 +141,7 @@ export const NavBar = () => {
                       <Link  href={`/Send`}> Send Messages</Link>
                     </DropdownMenuItem>}
                     {!user && <DropdownMenuItem  className="flex justify-center" onClick={() => signIn()}>Sign In</DropdownMenuItem>}
-                   {user && <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>Sign Out</DropdownMenuItem>}
+                   {user && <DropdownMenuItem onClick={signOutHandler}>Sign Out</DropdownMenuItem>}
                   </DropdownMenuContent>
                 </DropdownMenu>
           </li>
