@@ -15,10 +15,9 @@ export const POST = async (req:NextRequest) =>
             const match = await bcrypt.compare(password, user.password);
             if(!match) return NextResponse.json({success:false,message:"Invalid password"}, {status:401});
             user.isSignedIn = true;
-             user.save().then(()=>{
-                return NextResponse.json({success:true,message:"Login successful"}, {status:200});
-             })
-             .catch((err:any) => console.log(err));
+              await user.save();
+            return NextResponse.json({success:true,message:"Login successful"}, {status:200});
+             
         }
     else 
         {
@@ -27,12 +26,8 @@ export const POST = async (req:NextRequest) =>
             const match = await bcrypt.compare(password, user.password);
             if(!match) return NextResponse.json({success:false,message:"Invalid password"}, {status:401});
             user.isSignedIn = true;
-             user.save().then(()=>{
-                return NextResponse.json({success:true,message:"Login successful"}, {status:200});
-             })
-             .catch((err:any) => console.log(err));
-
-            
+             await user.save();
+             return NextResponse.json({success:true,message:"Login successful"}, {status:200});
         }
     }
     catch(err)
