@@ -14,7 +14,6 @@ export const POST = async () =>
         const user:User = session?.user;
         const signOuttedUser = await UserModel.findOne({username: user.username});
         signOuttedUser.isSignedIn = false;
-        signOuttedUser.save()
-        .then(() => {return NextResponse.json({ success: true, message: "Signout Successful" }, { status: 200 })} )
-        .catch(() => {return NextResponse.json({ success: false, message: "Internal Server Error" }, { status: 500 })});
+         await signOuttedUser.save() ;
+        return NextResponse.json({success:true,message:"Signout Successful"},{status:200});
     }
