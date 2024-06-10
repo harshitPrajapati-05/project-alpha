@@ -83,7 +83,7 @@ const SignIn = () =>
               <Link href="/auth/Signup" className="text-sm font-bold   text-sky-500">Sign Up</Link>
               </FormLabel>
               <FormControl>
-                <Input placeholder='double click the "Sign in " to switch email or username' {...field}/>
+                <Input placeholder='double click the"Sign in "to switch email/username' {...field}/>
               </FormControl>
               <FormMessage />
             </FormItem>)} />
