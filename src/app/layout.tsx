@@ -15,6 +15,7 @@ const inter = Roboto_Mono({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Project Alpha",
   description: "Messengers by Errors",
+  icons:`/images.png`
 };
 
 
