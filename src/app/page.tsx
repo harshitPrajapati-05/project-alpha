@@ -49,7 +49,38 @@ const Page = () => {
         </p>
     </motion.div>
   )
-  return null ;
+  
+  return (
+    < motion.div 
+    initial={{ y:-500 }}
+    animate={{ y: 0  , }}
+    className="sm:my-28  h-[20rem]    text-center    ">
+      <p className=" text-5xl py-8  text-sky-700/70    ">
+        HELLO to PROJECT ALPHA
+      </p>
+      <p className=' mt-20 text-sky-700 font-semibold'>
+      Made By Using 
+        <LinkPreview url="https://authjs.dev/" quality={100} width={225}  height={150} className="font-bold px-2 text-white/80 ">
+        AuthJs
+        </LinkPreview>
+        🔹
+        <LinkPreview url="https://ui.aceternity.com/" quality={100} width={225}  height={150} className="font-bold px-2 text-white/80 ">
+        Aceternity
+        </LinkPreview>
+        🔹
+        <LinkPreview url="https://ui.shadcn.com/" quality={100} width={225}  height={150} className="font-bold px-2 text-white/80 ">
+        ShadCn   
+        </LinkPreview>
+    </p>
+    <p className='text-sky-700 font-semibold'>
+          Guided By 
+          <LinkPreview url="https://www.youtube.com/@chaiaurcode" quality={100} width={225}  height={150} className="font-bold px-2  text-white/80 ">
+          Chai Aur Code 
+          </LinkPreview>
+        </p>
+
+    </motion.div>
+  ) ;
 }
 
 
