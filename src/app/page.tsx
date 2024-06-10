@@ -55,7 +55,7 @@ const Page = () => {
     initial={{ y:-500 }}
     animate={{ y: 0  , }}
     className="sm:my-28  h-[20rem]    text-center    ">
-      <p className=" text-5xl py-8  text-sky-700/70    ">
+      <p className=" text-5xl py-8  text-sky-600   ">
         HELLO to PROJECT ALPHA
       </p>
       <p className=' mt-20 text-sky-700 font-semibold'>

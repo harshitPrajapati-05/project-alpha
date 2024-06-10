@@ -89,7 +89,7 @@ export const NavBar = () => {
             className=" flex  mt-2  border-2 rounded-2xl"
             />
            </HoverCardTrigger>
-           <HoverCardContent className="rounded-2xl text-[10px] bg-gradient-to-tr from-black/20 to-black/60 p-4 text-wrap  h-fit w-fit text-white">
+           <HoverCardContent className="rounded-2xl text-[10px] dark p-4 text-wrap  h-fit w-fit text-white">
            <p className="flex ">Username::{user?.username}</p>
            <p> Email::{user?.email}</p>
            <p className={`${user?.isAcceptingMessages ? "text-green-500" : "text-red-500"}`}> { user?.isAcceptingMessages? "online" : "offline"}</p>

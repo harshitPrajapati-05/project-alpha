@@ -12,9 +12,10 @@ import axios from 'axios'
 import { useDebounceCallback } from 'usehooks-ts'
 import {Card,CardContent,CardFooter,CardHeader,CardTitle,} from "@/components/ui/card"
 import {toast} from "sonner"
-import { CrossCircledIcon, PlusCircledIcon} from "@radix-ui/react-icons"
+import { CrossCircledIcon, EyeClosedIcon, EyeOpenIcon, PlusCircledIcon} from "@radix-ui/react-icons"
 import { useRouter } from 'next/navigation'
 import { signIn, useSession } from 'next-auth/react'
+import Link from 'next/link'
 
 
 const AuthPage = () =>
@@ -80,6 +81,7 @@ const AuthPage = () =>
     }
 
     if(user) router.push(`/`);
+    const[show , setShow] = useState(false)
 
     return (
       <Card  className="w-1/2   mx-auto  shadow-[0px_0px_100px_rgba(255,255,255,1)]   hover:shadow-[0px_0px_100px_rgba(56,189,248,1)]   mt-4 px-10   ">
@@ -109,7 +111,8 @@ const AuthPage = () =>
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+               <FormLabel className='flex items-center justify-between'> 
+              </FormLabel>
               <FormControl>
                 <Input placeholder="" {...field} />
               </FormControl>
@@ -122,9 +125,14 @@ const AuthPage = () =>
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+               <FormLabel className='flex items-center justify-between'> 
+               Password
+               {
+                 show ? <EyeOpenIcon onClick={() => setShow(false)} /> : <EyeClosedIcon onClick={() => setShow(true)} />
+               }
+              </FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="shadcn" type={`${ show? "text" : "password" }`} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

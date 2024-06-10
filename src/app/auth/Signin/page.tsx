@@ -14,6 +14,7 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { User } from 'next-auth'
+import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons'
 const SignIn = () =>
 {
   const [user , setUser]= useState<User|null>()
@@ -63,6 +64,7 @@ const SignIn = () =>
 
         if(user) router.push(`/`)
        
+          const [show, setShow] = useState(false);
   return (
     
     <Card className=" w-1/2  mx-auto py-20   shadow-[0px_0px_100px_rgba(255,255,255,1)]   hover:shadow-[0px_0px_100px_rgba(56,189,248,1)]   mt-16 px-20  ">
@@ -81,7 +83,7 @@ const SignIn = () =>
               <Link href="/auth/Signup" className="text-sm font-bold   text-sky-500">Sign Up</Link>
               </FormLabel>
               <FormControl>
-                <Input {...field}/>
+                <Input placeholder='double click the "Sign in " to switch email or username' {...field}/>
               </FormControl>
               <FormMessage />
             </FormItem>)} />
@@ -90,9 +92,14 @@ const SignIn = () =>
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+               <FormLabel className='flex items-center justify-between'> 
+               Password
+               {
+                 show ? <EyeOpenIcon onClick={() => setShow(false)} /> : <EyeClosedIcon onClick={() => setShow(true)} />
+               }
+              </FormLabel>
               <FormControl>
-                <Input {...field}/>
+                <Input placeholder="shadcn" type={`${ show? "text" : "password" }`} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>)} />
