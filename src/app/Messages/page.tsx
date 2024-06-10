@@ -39,7 +39,7 @@ const MessagesPage = () => {
    <>
    {
      messages.length > 0 ? 
-     <Card className="   mt-6  mx-28   justify-between  shadow-[0px_0px_80px_rgba(255,255,255,1)]  hover:shadow-[0px_0px_60px_rgba(56,189,248,1)]   ">
+     <Card className="   mt-6  mx-28   justify-between bg-transparent border-transparent    ">
       <ul className=" flex flex-wrap justify-evenly dark ">
       {
       

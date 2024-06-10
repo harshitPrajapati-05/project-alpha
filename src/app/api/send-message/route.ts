@@ -14,7 +14,7 @@ export const POST = async(req:NextRequest)=>
     {
         const user = await UserModel.findOne({username:username});  
         if(!user) return NextResponse.json({success:false,message:"User not found"}, {status:404});
-        if(!user.isAcceptingMessages) return NextResponse.json({success:false,message:"User not accepting messages"}, {status:403})
+        if(!user.isAcceptingMessages) return NextResponse.json({success:false,message: `${username} isn't accepting messages`}, {status:403})
         const newMessage = {content , username , sender, createdAt:new Date()}
         user.messages.push(newMessage as Message);
         const MessagedSent = await user.save();
