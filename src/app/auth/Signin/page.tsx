@@ -95,7 +95,7 @@ const SignIn = () =>
                <FormLabel className='flex items-center justify-between'> 
                Password
                {
-                 show ? <EyeOpenIcon className='cursor-pointer w-2 h-2' onClick={() => setShow(false)} /> : <EyeClosedIcon className='cursor-pointer w-2 h-2' onClick={() => setShow(true)} />
+                 show ? <EyeOpenIcon className='cursor-pointer w-2 h-2 text-sky-600' onClick={() => setShow(false)} /> : <EyeClosedIcon className='cursor-pointer w-2 h-2 text-sky-600' onClick={() => setShow(true)} />
                }
               </FormLabel>
               <FormControl>
