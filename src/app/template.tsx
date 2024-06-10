@@ -76,7 +76,7 @@ const Template = ({ children }: { children: React.ReactNode }) => {
         });
     },[]);
 
-    if(users?.numberOfUsers! > 3 )
+    if(users?.numberOfUsers! > 10 )
         return (
            <Card className=" max-w-lg  mx-auto w-fit   border-red-500  mt-32 s text-red-500  shadow-[0px_0px_200px_rgba(239, 68, 68, 1)]">
             <CardHeader>
