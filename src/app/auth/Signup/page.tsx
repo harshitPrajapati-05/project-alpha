@@ -128,7 +128,7 @@ const AuthPage = () =>
                <FormLabel className='flex items-center justify-between'> 
                Password
                {
-                 show ? <EyeOpenIcon onClick={() => setShow(false)} /> : <EyeClosedIcon onClick={() => setShow(true)} />
+                 show ? <EyeOpenIcon  className='cursor-pointer w-2 h-2' onClick={() => setShow(false)} /> : <EyeClosedIcon className='cursor-pointer w-2 h-2' onClick={() => setShow(true)} />
                }
               </FormLabel>
               <FormControl>

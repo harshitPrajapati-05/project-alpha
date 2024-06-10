@@ -6,22 +6,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ArrowPathIcon, Bars4Icon, CheckBadgeIcon, ExclamationCircleIcon } from "@heroicons/react/24/solid";
-import { Session, User } from "next-auth";
+import { ArrowPathIcon, CheckBadgeIcon, ExclamationCircleIcon } from "@heroicons/react/24/solid";
+import {  User } from "next-auth";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { CldImage } from "next-cloudinary";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
-import { Button } from "./ui/button";
 import Link from "next/link";
-import  uniqid  from "uniqid"
 import { GearIcon, HomeIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 export const NavBar = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const [isVerifying, setIsVerifying] = useState(false);
   const [user , setUser]= useState<User|null>()

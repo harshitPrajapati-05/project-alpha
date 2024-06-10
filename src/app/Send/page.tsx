@@ -12,10 +12,8 @@ import { Button } from "@/components/ui/button";
 import uniqid from 'uniqid'
 import axios from "axios";
 import { toast } from "sonner";
-import Link from "next/link";
 import {username as Username} from "@/Schmea/SignUp"
-import { HomeIcon, PaperPlaneIcon } from "@radix-ui/react-icons";
-import { motion } from "framer-motion";
+import {  PaperPlaneIcon } from "@radix-ui/react-icons";
 
 
 type MessageType = z.infer<typeof sendMessage>

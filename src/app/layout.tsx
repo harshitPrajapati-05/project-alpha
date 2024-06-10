@@ -6,10 +6,8 @@ import { Toaster } from "@/components/ui/sonner";
 import AuthProvider  from "@/context/AuthProvider";
 import { NavBar } from "@/components/NavBar";
 import { WavyBackground } from "@/components/ui/wavy-background";
-import axios from "axios";
 import React from "react";
-import dbConnect from "@/lib/dbConnect";
-import { UserModel } from "@/Models/User";
+
 
 const inter = Roboto_Mono({ subsets: ["latin"] });
 
