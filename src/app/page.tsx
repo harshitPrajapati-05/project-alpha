@@ -20,7 +20,7 @@ const Page = () => {
            SignIn
         </LinkPreview>{" "}
     </p>
-    <p className='  -mt-4 text-xl text-sky-700/70 font-medium '>
+    <p className='  -mt-4 text-xl text-sky-600 font-medium '>
        U can only 
         <LinkPreview url="https://project-alpha-vert.vercel.app/Send" quality={100} width={225}  height={150} className="font-bold px-2 text-white/80 ">
         SendMessages
