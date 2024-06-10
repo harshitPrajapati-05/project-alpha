@@ -112,7 +112,7 @@ export const WavyBackground = ({
   return (
     <div
       className={cn(
-        "",
+        "w-full h-full",
         containerClassName
       )}
     >
