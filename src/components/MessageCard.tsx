@@ -39,7 +39,7 @@ export const MessageCard =({message,onMessageDelete}:MessageCardProps)=>
         
         if(!user) return <></>
         return (
-                <Card className="w-full max-w-sm mx-3 my-2 hover:shadow-[0px_0px_100px_rgba(56,189,248,1)]   flex flex-col  light justify-between   ">
+                <Card className="w-full max-w-sm mx-1 my-1 hover:shadow-[0px_0px_100px_rgba(56,189,248,1)]   flex flex-col  light justify-between   ">
                 <CardHeader className="flex-row py-1 px-1 justify-end">
                 <AlertDialog  >
                     <AlertDialogTrigger asChild>
