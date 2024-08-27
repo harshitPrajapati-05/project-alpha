@@ -123,13 +123,13 @@ export const NavBar = () => {
                     <GearIcon    className={`w-7 h-7  text-white  animate-spin flex  mb-4`} />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="dark mt-auto  "  >
+                    {pathname==='/Send' &&  <DropdownMenuItem  asChild> 
+                    <Link  href={`/`} className="flex justify-center"  > <HomeIcon className="font-bold"/></Link>
+                    </DropdownMenuItem>}
                      {user && <DropdownMenuItem asChild >
                         <Link href={`/auth/Verify/${btoa(btoa(user?.username))}/${btoa(user?.verifyCode)}` || `/verify`}>
                       Verify Account
                     </Link>
-                    </DropdownMenuItem>}
-                    {pathname==='/Send' &&  <DropdownMenuItem  asChild> 
-                    <Link  href={`/`} className="flex justify-center"  > <HomeIcon className="font-bold"/></Link>
                     </DropdownMenuItem>}
                     {user && <DropdownMenuItem asChild>
                       <Link  href={`/Messages`}> Messages</Link>
